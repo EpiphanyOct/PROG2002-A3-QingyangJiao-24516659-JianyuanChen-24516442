@@ -1,0 +1,372 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 头部样式 */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logo img {
+    margin-bottom: 15px;
+}
+
+header h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* 导航样式 */
+.main-nav {
+    background-color: #3498db;
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.main-nav li {
+    margin: 0 15px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.main-nav a:hover, .main-nav li.active a {
+    background-color: #2980b9;
+}
+
+/* 主要内容区 */
+main {
+    padding: 40px 0;
+}
+
+/* 英雄区域 */
+.hero {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.hero-content {
+    flex: 1;
+    padding: 40px;
+}
+
+.hero-content h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+}
+
+.hero-content p {
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #e74c3c;
+}
+
+.btn-primary:hover {
+    background-color: #c0392b;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 关于区域 */
+.about-section {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.about-section h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.about-content {
+    margin-bottom: 30px;
+}
+
+.about-content p {
+    margin-bottom: 15px;
+}
+
+.contact-info h3 {
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    margin-bottom: 8px;
+}
+
+/* 活动区域 */
+.events-section h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* 活动卡片样式 */
+.event-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.event-header {
+    background-color: #3498db;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.event-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.event-category {
+    background-color: rgba(255,255,255,0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.event-details {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-meta {
+    margin-bottom: 15px;
+}
+
+.event-meta > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.event-meta .icon-calendar::before {
+    content: "";
+    margin-right: 8px;
+}
+
+.event-meta .icon-location::before {
+    content: "";
+    margin-right: 8px;
+}
+
+.event-meta .icon-ticket::before {
+    content: "️";
+    margin-right: 8px;
+}
+
+.event-description {
+    color: #555;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.event-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+}
+
+.event-progress {
+    margin-bottom: 15px;
+}
+
+.progress-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #28a745;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.event-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.event-link:hover {
+    background-color: #c0392b;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* 页脚 */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+    }
+
+    .hero-content {
+        padding: 30px 20px;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .main-nav li {
+        margin: 5px 0;
+    }
+
+    .about-section {
+        padding: 25px 20px;
+    }
+    
+    /* 响应式调整 */
+    .event-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .event-category {
+        margin-top: 8px;
+    }
+    
+    .event-meta > div {
+        font-size: 0.9rem;
+    }
+}
+/* 搜索结果高亮 */
+mark {
+    background-color: #ffeb3b;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* 搜索表单样式调整 */
+.form-group input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Charity Events</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="logo">
+            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
+        </div>
+        <h1>Charity Events Hub</h1>
+        <p>Connecting communities through meaningful events</p>
+    </div>
+</header>
+
+<nav class="main-nav">
+    <div class="container">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="search.html">Search Events</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="search-section">
+        <h2>Search Charity Events</h2>
+        <div class="search-form">
+            <form id="event-search-form">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter location">
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <label for="name">Event Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter event name">
+                    <select id="category" name="category">
+                        <option value="">All Categories</option>
+                        <option value="Fun Run">Fun Run</option>
+                        <option value="Gala Dinner">Gala Dinner</option>
+                        <option value="Silent Auction">Silent Auction</option>
+                        <option value="Concert">Concert</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Search Events</button>
+                    <button type="button" id="clear-filters" class="btn btn-secondary">Clear Filters</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <h2>Search Results</h2>
+        <div id="search-results" class="events-grid">
+            <div class="loading">Enter search criteria and click "Search Events" to find charity events.</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
+        <p>Making a difference one event at a time.</p>
+    </div>
+</footer>
+
+<script src="js/search.js"></script>
+</body>
+</html>
