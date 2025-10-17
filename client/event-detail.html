@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - CharityConnect</title>
+    <meta name="description" content="View detailed information about charity events including description, location, ticket prices, and registration details.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i> CharityConnect
+                </a>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="search.html" class="nav-link">Find Events</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Event Hero Section -->
+    <section class="event-hero">
+        <div class="container">
+            <div id="event-hero-content">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Details Section -->
+    <div class="container">
+        <div id="event-details" class="event-details">
+            <!-- Loading State -->
+            <div id="loading-state" class="p-8 text-center">
+                <div class="spinner mx-auto mb-4"></div>
+                <p>Loading event details...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="error-state" class="p-8 text-center" style="display: none;">
+                <i class="fas fa-exclamation-triangle text-6xl text-red-500 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-600 mb-2">Event Not Found</h3>
+                <p class="text-gray-500 mb-4">The event you're looking for doesn't exist or has been removed.</p>
+                <a href="search.html" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Find Other Events
+                </a>
+            </div>
+
+            <!-- Event Content -->
+            <div id="event-content" style="display: none;">
+                <!-- Event Info Grid -->
+                <div class="event-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt info-icon"></i>
+                        <div>
+                            <div class="font-semibold">Date & Time</div>
+                            <div id="event-datetime">-</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt info-icon"></i>
+                        <div>
+                            <div class="font-semibold">Location</div>
+                            <div id="event-location">-</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-ticket-alt info-icon"></i>
+                        <div>
+                            <div class="font-semibold">Ticket Price</div>
+                            <div id="event-price">-</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users info-icon"></i>
+                        <div>
+                            <div class="font-semibold">Availability</div>
+                            <div id="event-availability">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Description -->
+                <div class="p-8">
+                    <h3>About This Event</h3>
+                    <div id="event-description" class="prose max-w-none">
+                        <!-- Event description will be loaded here -->
+                    </div>
+
+                    <!-- Fundraising Progress -->
+                    <div id="fundraising-section" class="mt-8 p-6 bg-gray-50 rounded-lg">
+                        <h4 class="mb-4">Fundraising Progress</h4>
+                        <div class="flex justify-between items-center mb-2">
+                            <span id="funds-raised">$0 raised</span>
+                            <span id="funds-goal">of $0 goal</span>
+                        </div>
+                        <div class="progress-container">
+                            <div id="progress-bar" class="progress-bar progress-blue" style="width: 0%"></div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-600">
+                            <span id="progress-percentage">0%</span> of goal reached
+                        </div>
+                    </div>
+
+                    <!-- Event Tags -->
+                    <div id="tags-section" class="mt-6">
+                        <h4 class="mb-3">Event Tags</h4>
+                        <div id="event-tags" class="flex flex-wrap gap-2">
+                            <!-- Tags will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Organization Info -->
+                    <div id="organization-section" class="mt-8 p-6 border-t">
+                        <h4 class="mb-4">Organized By</h4>
+                        <div class="flex items-start gap-4">
+                            <div class="flex-1">
+                                <h5 id="org-name" class="font-semibold text-lg">-</h5>
+                                <p id="org-description" class="text-gray-600 mt-2">-</p>
+                                <div id="org-contact" class="mt-4 space-y-2">
+                                    <!-- Contact info will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Section -->
+                    <div class="mt-8 p-6 border-t">
+                        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div>
+                                <h4 class="font-semibold">Ready to Join?</h4>
+                                <p class="text-gray-600">Register now to secure your spot at this meaningful event.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button id="register-btn" class="btn btn-primary">
+                                    <i class="fas fa-user-plus"></i> Register Now
+                                </button>
+                                <button id="share-btn" class="btn btn-outline">
+                                    <i class="fas fa-share"></i> Share Event
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Events Section -->
+    <section class="section bg-gray-100" id="related-events-section">
+        <div class="container">
+            <h2 class="text-center mb-8">You Might Also Like</h2>
+            <div id="related-events" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-heart"></i> CharityConnect</h4>
+                    <p>Connecting communities through meaningful charity events. Together, we make a difference.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="search.html">Find Events</a></p>
+                    <p><a href="index.html#about">About</a></p>
+                    <p><a href="index.html#contact">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Event Categories</h4>
+                    <p><a href="search.html?category=1">Gala Dinners</a></p>
+                    <p><a href="search.html?category=2">Fun Runs</a></p>
+                    <p><a href="search.html?category=3">Auctions</a></p>
+                    <p><a href="search.html?category=4">Concerts</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CharityConnect. All rights reserved. | PROG2002 Assessment Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register for Event</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This feature is currently under construction. Registration functionality will be available in the next version.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share This Event</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Share this event with your friends and family:</p>
+                <div class="mt-4">
+                    <input type="text" id="share-url" class="form-input" readonly>
+                </div>
+                <div class="flex gap-3 mt-4">
+                    <button id="copy-url" class="btn btn-primary">
+                        <i class="fas fa-copy"></i> Copy Link
+                    </button>
+                    <button class="btn btn-outline close-btn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/event-detail.js"></script>
+</body>
+</html>

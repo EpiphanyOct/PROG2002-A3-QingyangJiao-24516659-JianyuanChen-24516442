@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Events - CharityConnect</title>
+    <meta name="description" content="Search and filter charity events by date, location, and category. Find the perfect event to support your favorite causes.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heart"></i> CharityConnect
+                </a>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="search.html" class="nav-link active">Find Events</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="section bg-gray-100">
+        <div class="container">
+            <h1 class="text-center mb-4">Find Your Perfect Charity Event</h1>
+            <p class="text-center text-gray-600 max-w-2xl mx-auto">
+                Discover events that match your interests and schedule. Filter by date, location, or category to find meaningful ways to make a difference.
+            </p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="section">
+        <div class="container">
+            <div class="search-form">
+                <h2 class="mb-6">Search Events</h2>
+                <form id="search-form">
+                    <div class="form-row">
+                        <div>
+                            <label for="date" class="form-label">Event Date</label>
+                            <input type="date" id="date" name="date" class="form-input">
+                        </div>
+                        <div>
+                            <label for="location" class="form-label">Location</label>
+                            <input type="text" id="location" name="location" class="form-input" placeholder="e.g., Sydney, Melbourne">
+                        </div>
+                        <div>
+                            <label for="category" class="form-label">Category</label>
+                            <select id="category" name="category" class="form-select">
+                                <option value="">All Categories</option>
+                                <!-- Categories will be loaded here -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 justify-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Search Events
+                        </button>
+                        <button type="button" id="clear-filters" class="btn btn-outline">
+                            <i class="fas fa-times"></i> Clear Filters
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Search Results -->
+            <div id="search-results">
+                <div class="flex justify-between items-center mb-6">
+                    <h2>Search Results</h2>
+                    <div id="results-count" class="text-gray-600">Loading events...</div>
+                </div>
+                
+                <!-- Loading State -->
+                <div id="loading-state" class="text-center py-12">
+                    <div class="spinner mx-auto mb-4"></div>
+                    <p>Searching for events...</p>
+                </div>
+
+                <!-- Error State -->
+                <div id="error-state" class="error-message" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span id="error-message">An error occurred while searching for events.</span>
+                </div>
+
+                <!-- No Results State -->
+                <div id="no-results-state" class="text-center py-12" style="display: none;">
+                    <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">No events found</h3>
+                    <p class="text-gray-500 mb-4">Try adjusting your search criteria or clear filters to see all events.</p>
+                    <button id="show-all-events" class="btn btn-primary">
+                        <i class="fas fa-list"></i> Show All Events
+                    </button>
+                </div>
+
+                <!-- Results Grid -->
+                <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style="display: none;">
+                    <!-- Event cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-heart"></i> CharityConnect</h4>
+                    <p>Connecting communities through meaningful charity events. Together, we make a difference.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="index.html">Home</a></p>
+                    <p><a href="search.html">Find Events</a></p>
+                    <p><a href="index.html#about">About</a></p>
+                    <p><a href="index.html#contact">Contact</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Event Categories</h4>
+                    <p><a href="search.html?category=1">Gala Dinners</a></p>
+                    <p><a href="search.html?category=2">Fun Runs</a></p>
+                    <p><a href="search.html?category=3">Auctions</a></p>
+                    <p><a href="search.html?category=4">Concerts</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="flex gap-3">
+                        <a href="#" class="text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-2xl"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CharityConnect. All rights reserved. | PROG2002 Assessment Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Registration Modal -->
+    <div id="registration-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Register for Event</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>This feature is currently under construction. Registration functionality will be available in the next version.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
