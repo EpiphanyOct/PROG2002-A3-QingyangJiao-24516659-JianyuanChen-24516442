@@ -18,9 +18,11 @@ app.use((req, res, next) => {
 // API路由
 var eventsAPI = require("./routes/events");
 var categoriesAPI = require("./routes/categories");
+var registrationsAPI = require("./routes/registrations");
 
 app.use("/api/events", eventsAPI);
 app.use("/api/categories", categoriesAPI);
+app.use("/api/registrations", registrationsAPI);
 
 // 启动服务器
 var PORT = 3060;

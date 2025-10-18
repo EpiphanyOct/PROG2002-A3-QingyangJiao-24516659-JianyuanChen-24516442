@@ -67,25 +67,57 @@ router.get("/search", function(req, res) {
     });
 });
 
-// 获取单个活动详情
+
+// 获取单个活动详情 + 注册列表 (GET /api/events/:id)
 router.get("/:id", function(req, res) {
     var connection = dbcon.getconnection();
+    var id = req.params.id;
 
-    var sql = "SELECT * FROM events WHERE id = ?";
-    connection.query(sql, [req.params.id], function(err, records) {
-        connection.end(); // 关闭连接
+    // 获取活动详情
+    var eventSql = "SELECT * FROM events WHERE id = " + id;
+
+    connection.query(eventSql, function(err, eventResult) {
         if (err) {
-            console.error("Error while retrieving event:", err);
-            res.status(500).send({ error: "Error while retrieving event" });
-        } else {
-            if (records.length === 0) {
-                res.status(404).send({ error: "Event not found" });
-            } else {
-                res.send(records[0]);
-            }
+            connection.end();
+            console.error(">>> SQL ERROR:", err.message);
+            res.status(500).send({ error: "Error while retrieving event", detail: err.message });
+            return;
         }
+
+        if (eventResult.length === 0) {
+            connection.end();
+            return res.status(404).send({ error: "Event not found" });
+        }
+
+        var event = eventResult[0];
+
+        // 获取该活动的注册列表，按注册日期倒序排列
+        var registrationsSql = "SELECT * FROM registrations WHERE event_id = " + id + " ORDER BY registration_date DESC";
+
+        connection.query(registrationsSql, function(err, registrationsResult) {
+            connection.end();
+
+            if (err) {
+                console.error(">>> SQL ERROR:", err.message);
+                // 即使注册列表查询失败，也返回活动信息
+                res.status(500).send({
+                    error: "Error while retrieving registrations",
+                    event: event,
+                    detail: err.message
+                });
+                return;
+            }
+
+            // 将注册列表添加到活动信息中
+            event.registrations = registrationsResult;
+
+            res.send(event);
+        });
     });
 });
+
+
+
 // 添加新活动（POST）
 router.post('/', function (req, res) {
     var conn = dbcon.getconnection();
