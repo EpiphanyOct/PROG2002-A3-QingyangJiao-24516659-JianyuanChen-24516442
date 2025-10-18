@@ -23,7 +23,7 @@ app.use("/api/events", eventsAPI);
 app.use("/api/categories", categoriesAPI);
 
 // 启动服务器
-var PORT = 3061;
+var PORT = 3060;
 app.listen(PORT, function() {
     console.log("Server up and running on port " + PORT);
 });

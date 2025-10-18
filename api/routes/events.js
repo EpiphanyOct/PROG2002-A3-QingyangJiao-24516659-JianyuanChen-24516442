@@ -7,7 +7,7 @@ connection.connect();//建立数据库连接
 
 // 获取所有活动
 router.get("/", function(req, res) {
-    var sql = "SELECT * FROM events WHERE status = 'upcoming'";
+    var sql = "SELECT * FROM events WHERE status = 'Active'";
     connection.query(sql, function(err, records, fields) {
         if (err) {
             console.error("Error while retrieving events:", err);
