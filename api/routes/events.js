@@ -183,7 +183,7 @@ router.put("/:id", function(req, res) {
         return res.status(400).send({ error: "Invalid date format" });
     }
 
-    var sql = "UPDATE events SET title = '" + title + "', description = '" + description + "', event_date = '" + formattedDate +
+    var sql = "UPDATE events SET title = " + title + "', description = '" + description + "', event_date = '" + formattedDate +
         "', location = '" + location + "', category_id = " + category_id + ", status = '" + status + "' WHERE id = " + id;
 
     console.log(">>> SQL:", sql); // 看拼接出来的 SQL 长啥样
