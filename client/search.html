@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索事件 - 慈善事件管理系统</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>慈善事件管理</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> 首页
+                </a>
+                <a href="search.html" class="nav-link active">
+                    <i class="fas fa-search"></i> 搜索事件
+                </a>
+                <a href="#" class="nav-link" onclick="showAbout()">
+                    <i class="fas fa-info-circle"></i> 关于我们
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main>
+        <!-- 搜索头部 -->
+        <section class="search-header">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-home"></i> 首页</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>搜索事件</span>
+                </div>
+                <h1>发现您感兴趣的慈善活动</h1>
+                <p>通过筛选条件找到最适合您的慈善事件</p>
+            </div>
+        </section>
+
+        <!-- 搜索表单 -->
+        <section class="search-form-section">
+            <div class="container">
+                <div class="search-form-card">
+                    <form id="searchForm">
+                        <div class="search-form-grid">
+                            <div class="form-group">
+                                <label for="searchKeyword">
+                                    <i class="fas fa-search"></i> 关键词
+                                </label>
+                                <input type="text" id="searchKeyword" name="keyword" 
+                                       placeholder="搜索事件名称或描述...">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="searchCategory">
+                                    <i class="fas fa-tag"></i> 分类
+                                </label>
+                                <select id="searchCategory" name="category">
+                                    <option value="">所有分类</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="searchStatus">
+                                    <i class="fas fa-calendar-check"></i> 状态
+                                </label>
+                                <select id="searchStatus" name="status">
+                                    <option value="">所有状态</option>
+                                    <option value="upcoming">即将开始</option>
+                                    <option value="past">已结束</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="searchLocation">
+                                    <i class="fas fa-map-marker-alt"></i> 地点
+                                </label>
+                                <input type="text" id="searchLocation" name="location" 
+                                       placeholder="输入地点...">
+                            </div>
+                        </div>
+                        
+                        <div class="search-form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> 搜索事件
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="resetSearch()">
+                                <i class="fas fa-redo"></i> 重置
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 搜索结果 -->
+        <section class="search-results-section">
+            <div class="container">
+                <div class="search-results-header">
+                    <h2>搜索结果</h2>
+                    <div class="search-stats">
+                        <span id="resultCount">0</span> 个事件找到
+                    </div>
+                </div>
+                
+                <div class="search-controls">
+                    <div class="sort-controls">
+                        <label for="sortBy">排序方式:</label>
+                        <select id="sortBy" onchange="sortResults()">
+                            <option value="date-asc">日期 (升序)</option>
+                            <option value="date-desc">日期 (降序)</option>
+                            <option value="name-asc">名称 (A-Z)</option>
+                            <option value="name-desc">名称 (Z-A)</option>
+                            <option value="price-asc">价格 (升序)</option>
+                            <option value="price-desc">价格 (降序)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="view-controls">
+                        <button class="view-btn active" onclick="setView('grid')" id="gridView">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" onclick="setView('list')" id="listView">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="search-results" id="searchResults">
+                    <div class="no-results" id="noResults">
+                        <i class="fas fa-search"></i>
+                        <h3>开始您的搜索</h3>
+                        <p>使用上方的搜索表单来查找您感兴趣的慈善事件</p>
+                    </div>
+                </div>
+                
+                <!-- 分页 -->
+                <div class="pagination" id="pagination" style="display: none;">
+                    <button class="page-btn" onclick="changePage(-1)" id="prevPage">
+                        <i class="fas fa-chevron-left"></i> 上一页
+                    </button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button class="page-btn" onclick="changePage(1)" id="nextPage">
+                        下一页 <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>致力于连接慈善组织与爱心人士，推动社会公益事业的发展。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p><i class="fas fa-envelope"></i> contact@charityevents.com</p>
+                    <p><i class="fas fa-phone"></i> +61 2 1234 5678</p>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 慈善事件管理系统. PROG2002 A3项目.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="js/search.js"></script>
+</body>
+</html>

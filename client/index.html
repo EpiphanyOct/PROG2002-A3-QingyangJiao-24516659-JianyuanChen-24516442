@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慈善事件管理系统 - PROG2002 A3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>慈善事件管理</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> 首页
+                </a>
+                <a href="search.html" class="nav-link">
+                    <i class="fas fa-search"></i> 搜索事件
+                </a>
+                <a href="#" class="nav-link" onclick="showAbout()">
+                    <i class="fas fa-info-circle"></i> 关于我们
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main>
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>参与慈善，改变世界</h1>
+                <p>发现并参与您感兴趣的慈善活动，为社会贡献一份力量</p>
+                <div class="hero-buttons">
+                    <a href="search.html" class="btn btn-primary">
+                        <i class="fas fa-search"></i> 浏览所有事件
+                    </a>
+                    <a href="#featured-events" class="btn btn-secondary">
+                        <i class="fas fa-star"></i> 推荐事件
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 统计信息 -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="stat-number" id="totalEvents">0</div>
+                        <div class="stat-label">总事件数</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-number" id="totalRegistrations">0</div>
+                        <div class="stat-label">参与人数</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-number" id="totalRaised">$0</div>
+                        <div class="stat-label">筹款总额</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-ticket-alt"></i>
+                        <div class="stat-number" id="totalTickets">0</div>
+                        <div class="stat-label">售出票数</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 即将开始的事件 -->
+        <section class="events-section" id="featured-events">
+            <div class="container">
+                <h2>即将开始的事件</h2>
+                <div class="events-grid" id="upcomingEvents">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 事件分类 -->
+        <section class="categories-section">
+            <div class="container">
+                <h2>事件分类</h2>
+                <div class="categories-grid" id="categories">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最新注册 -->
+        <section class="recent-registrations">
+            <div class="container">
+                <h2>最新参与</h2>
+                <div class="registrations-list" id="recentRegistrations">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>致力于连接慈善组织与爱心人士，推动社会公益事业的发展。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p><i class="fas fa-envelope"></i> contact@charityevents.com</p>
+                    <p><i class="fas fa-phone"></i> +61 2 1234 5678</p>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 慈善事件管理系统. PROG2002 A3项目.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
