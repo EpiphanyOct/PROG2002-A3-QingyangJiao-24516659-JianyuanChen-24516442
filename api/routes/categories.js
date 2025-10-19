@@ -1,24 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const { query } = require('../event_db');
+var express = require('express');
+var router = express.Router();
+var dbcon = require("../event_db.js");
+var connection = dbcon.getconnection();
 
-// 获取所有活动分类
-router.get('/', async (req, res) => {
-    try {
-        const categories = await query('SELECT * FROM event_categories ORDER BY name');
-        
-        res.json({
-            success: true,
-            data: categories,
-            count: categories.length
-        });
-    } catch (error) {
-        console.error('Error fetching categories:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to fetch categories'
-        });
-    }
+connection.connect();
+
+// 获取所有类别
+router.get("/", function(req, res) {
+    var sql = "SELECT * FROM categories";
+    connection.query(sql, function(err, records, fields) {
+        if (err) {
+            console.error("Error while retrieving categories:", err);
+            res.status(500).send({ error: "Error while retrieving categories" });
+        } else {
+            res.send(records);
+        }
+    });
 });
 
 module.exports = router;
