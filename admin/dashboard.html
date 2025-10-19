@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Charity Events Hub</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="logo">
+            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
+        </div>
+        <h1>Charity Events Hub</h1>
+        <p>Connecting communities through meaningful events</p>
+    </div>
+</header>
+
+<nav class="main-nav">
+    <div class="container">
+        <ul>
+            <li class="active"><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    
+    <section class="hero" style="margin-bottom:30px;">
+        <div class="hero-content">
+            <h2 id="welcomeMessage">Welcome back!</h2>
+            <p>Here is your charity events dashboard.</p>
+            <div class="hero-buttons">
+                <a href="events.html" class="btn btn-primary">Manage Events</a>
+                <a href="categories.html" class="btn btn-secondary">Manage Categories</a>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                <div class="stat-number" id="totalEvents">--</div>
+                <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" id="totalRegistrations">--</div>
+                <div class="stat-label">Total Registrations</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-dollar-sign"></i></div>
+                <div class="stat-number" id="totalRevenue">--</div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-tags"></i></div>
+                <div class="stat-number" id="totalCategories">--</div>
+                <div class="stat-label">Total Categories</div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="events-section" style="margin-top:30px;">
+        <h2>Recent Activities</h2>
+        <div id="activitiesList" class="registrations-list">
+            <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading activities...</div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
+        <p>Making a difference one event at a time.</p>
+    </div>
+</footer>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Management - Charity Events Hub</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="logo">
+            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
+        </div>
+        <h1>Charity Events Hub</h1>
+        <p>Connecting communities through meaningful events</p>
+    </div>
+</header>
+
+<nav class="main-nav">
+    <div class="container">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li class="active"><a href="categories.html">Categories</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="container">
+    <section class="events-list-section">
+        <h2>Category Management</h2>
+
+        
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="stat-number" id="totalCategories">0</div>
+                <div class="stat-label">Total Categories</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-number" id="totalEvents">0</div>
+                <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat-card fade-in">
+                <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                <div class="stat-number" id="avgEventsPerCategory">0</div>
+                <div class="stat-label">Avg Events / Category</div>
+            </div>
+        </div>
+
+        
+        <div class="events-list-section" style="margin-top:30px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                <h3>All Categories</h3>
+                <button class="btn btn-primary" onclick="showCreateCategoryModal()">
+                    <i class="fas fa-plus"></i> Create Category
+                </button>
+            </div>
+            <div id="categoriesGrid" class="events-grid">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading categories...</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
+        <p>Making a difference one event at a time.</p>
+    </div>
+</footer>
+
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<script src="js/categories.js"></script>
+</body>
+</html>
