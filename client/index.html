@@ -1,230 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CharityConnect - Connecting Communities Through Events</title>
-    <meta name="description" content="Join meaningful charity events in your city. Find galas, fun runs, auctions, concerts and more to support worthy causes.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/theme.css">
+    <title>慈善事件管理系统 - PROG2002 A3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-heart"></i> CharityConnect
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>慈善事件管理</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> 首页
                 </a>
-                <nav class="nav">
-                    <a href="index.html" class="nav-link active">Home</a>
-                    <a href="search.html" class="nav-link">Find Events</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </nav>
+                <a href="search.html" class="nav-link">
+                    <i class="fas fa-search"></i> 搜索事件
+                </a>
+                <a href="#" class="nav-link" onclick="showAbout()">
+                    <i class="fas fa-info-circle"></i> 关于我们
+                </a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
+    <!-- 主要内容 -->
+    <main>
+        <!-- 英雄区域 -->
+        <section class="hero">
             <div class="hero-content">
-                <h1>Make a Difference Through Events</h1>
-                <p>Connect with your community and support meaningful causes. Discover charity events that align with your values and make a positive impact.</p>
-                <a href="search.html" class="btn btn-primary">
-                    <i class="fas fa-search"></i> Find Events
-                </a>
+                <h1>参与慈善，改变世界</h1>
+                <p>发现并参与您感兴趣的慈善活动，为社会贡献一份力量</p>
+                <div class="hero-buttons">
+                    <a href="search.html" class="btn btn-primary">
+                        <i class="fas fa-search"></i> 浏览所有事件
+                    </a>
+                    <a href="#featured-events" class="btn btn-secondary">
+                        <i class="fas fa-star"></i> 推荐事件
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="text-center mb-8">About CharityConnect</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="card">
-                    <div class="card-content text-center">
-                        <i class="fas fa-hands-helping text-4xl text-primary-blue mb-4"></i>
-                        <h3>Support Causes</h3>
-                        <p class="card-text">Join events that support education, environment, health, and community development initiatives.</p>
+        <!-- 统计信息 -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="stat-number" id="totalEvents">0</div>
+                        <div class="stat-label">总事件数</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-number" id="totalRegistrations">0</div>
+                        <div class="stat-label">参与人数</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="stat-number" id="totalRaised">$0</div>
+                        <div class="stat-label">筹款总额</div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-ticket-alt"></i>
+                        <div class="stat-number" id="totalTickets">0</div>
+                        <div class="stat-label">售出票数</div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-content text-center">
-                        <i class="fas fa-users text-4xl text-primary-green mb-4"></i>
-                        <h3>Build Community</h3>
-                        <p class="card-text">Connect with like-minded individuals who share your passion for making a difference.</p>
+            </div>
+        </section>
+
+        <!-- 即将开始的事件 -->
+        <section class="events-section" id="featured-events">
+            <div class="container">
+                <h2>即将开始的事件</h2>
+                <div class="events-grid" id="upcomingEvents">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-content text-center">
-                        <i class="fas fa-calendar-alt text-4xl text-secondary-coral mb-4"></i>
-                        <h3>Discover Events</h3>
-                        <p class="card-text">Find galas, fun runs, auctions, concerts, and workshops in your area.</p>
+            </div>
+        </section>
+
+        <!-- 事件分类 -->
+        <section class="categories-section">
+            <div class="container">
+                <h2>事件分类</h2>
+                <div class="categories-grid" id="categories">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Featured Events Section -->
-    <section class="section bg-gray-100">
-        <div class="container">
-            <h2 class="text-center mb-8">Featured Upcoming Events</h2>
-            <div id="featured-events" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Events will be loaded here -->
-                <div class="loading">
-                    <div class="spinner"></div>
-                </div>
-            </div>
-            <div class="text-center mt-8">
-                <a href="search.html" class="btn btn-outline">View All Events</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center mb-8">Our Impact</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary-blue mb-2" id="events-count">0</div>
-                    <div class="text-gray-600">Active Events</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-primary-green mb-2" id="organizations-count">0</div>
-                    <div class="text-gray-600">Partner Organizations</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-secondary-coral mb-2" id="participants-count">0</div>
-                    <div class="text-gray-600">Participants</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-4xl font-bold text-accent-purple mb-2" id="funds-raised">$0</div>
-                    <div class="text-gray-600">Funds Raised</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="section bg-gray-100" id="contact">
-        <div class="container">
-            <h2 class="text-center mb-8">Get in Touch</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h3>Contact Information</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-envelope text-primary-blue"></i>
-                            <span>info@charityconnect.org</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-phone text-primary-green"></i>
-                            <span>+61 2 9876 5432</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-map-marker-alt text-secondary-coral"></i>
-                            <span>Sydney, Australia</span>
-                        </div>
+        <!-- 最新注册 -->
+        <section class="recent-registrations">
+            <div class="container">
+                <h2>最新参与</h2>
+                <div class="registrations-list" id="recentRegistrations">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>加载中...</p>
                     </div>
                 </div>
-                <div>
-                    <form class="space-y-4">
-                        <div>
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" id="name" name="name" class="form-input" required>
-                        </div>
-                        <div>
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" name="email" class="form-input" required>
-                        </div>
-                        <div>
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-input" required>
-                        </div>
-                        <div>
-                            <label for="message" class="form-label">Message</label>
-                            <textarea id="message" name="message" class="form-textarea" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i> Send Message
-                        </button>
-                    </form>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
+    <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4><i class="fas fa-heart"></i> CharityConnect</h4>
-                    <p>Connecting communities through meaningful charity events. Together, we make a difference.</p>
+                    <h3>关于我们</h3>
+                    <p>致力于连接慈善组织与爱心人士，推动社会公益事业的发展。</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <p><a href="index.html">Home</a></p>
-                    <p><a href="search.html">Find Events</a></p>
-                    <p><a href="#about">About</a></p>
-                    <p><a href="#contact">Contact</a></p>
+                    <h3>联系方式</h3>
+                    <p><i class="fas fa-envelope"></i> contact@charityevents.com</p>
+                    <p><i class="fas fa-phone"></i> +61 2 1234 5678</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Event Categories</h4>
-                    <p><a href="search.html?category=1">Gala Dinners</a></p>
-                    <p><a href="search.html?category=2">Fun Runs</a></p>
-                    <p><a href="search.html?category=3">Auctions</a></p>
-                    <p><a href="search.html?category=4">Concerts</a></p>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-2xl"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-2xl"><i class="fab fa-linkedin"></i></a>
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 CharityConnect. All rights reserved. | PROG2002 Assessment Project</p>
+                <p>&copy; 2025 慈善事件管理系统. PROG2002 A3项目.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Registration Modal -->
-    <div id="registration-modal" class="modal">
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3>Register for Event</h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>This feature is currently under construction. Registration functionality will be available in the next version.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary close-btn">Close</button>
-            </div>
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="js/main.js"></script>
-    <script src="js/home.js"></script>
 </body>
 </html>
