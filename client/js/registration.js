@@ -1,6 +1,9 @@
-// PROG2002 A3 - Registration Page  (registration.js)
+// PROG2002 A3 - Registration Page (registration.js)
+
+/* ---------- 1. Basic configuration ---------- */
 const API_BASE_URL = window.location.origin + '/api';
 
+/* ---------- 2. Tool function ---------- */
 const formatDate = d => new Date(d).toLocaleDateString('en-US', {
   year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
 });
@@ -12,71 +15,85 @@ const modal = (title, html) => {
   m.querySelector('.close').onclick = () => m.style.display = 'none';
 };
 
-let currentEvent = null, eventId = null;
+/* ---------- 3. State variables ---------- */
+let currentEvent = null;
+let eventId = null;
 
+/* ----------4.initialization ---------- */
 document.addEventListener('DOMContentLoaded', initRegistration);
 
 async function initRegistration() {
   eventId = new URLSearchParams(location.search).get('id');
-  if (!eventId) return modal('错误', '缺少事件ID'), setTimeout(() => location.href = 'search.html', 1500);
+  if (!eventId) return modal('Error', 'No event ID'), setTimeout(() => location.href = 'search.html', 1500);
+
   try {
     const res = await fetch(`${API_BASE_URL}/events/${eventId}`);
     const json = await res.json();
-    if (!json.success) throw new Error(json.error || '事件不存在');
+    if (!json.success) throw new Error(json.error || 'Event not found');
     currentEvent = json.data;
+
     renderEventInfo();
     setupTicketSelect();
     setupFormValidation();
   } catch (e) {
-    modal('加载失败', e.message);
+    modal('Load failed', e.message);
   }
 }
 
+/* ----------5. Render the event card ---------- */
 function renderEventInfo() {
   const isFree = currentEvent.ticket_price === 0;
   const progress = currentEvent.goal_amount > 0 ? Math.min(100, (currentEvent.current_amount / currentEvent.goal_amount) * 100) : 0;
-  document.getElementById('eventInfo').innerHTML = `
-<div class="event-info-card">
-  <h1>${currentEvent.event_name}</h1>
-  <div class="event-meta-detailed">
-    <div class="meta-item"><i class="fas fa-calendar"></i>${formatDate(currentEvent.event_date)}</div>
-    <div class="meta-item"><i class="fas fa-map-marker-alt"></i>${currentEvent.event_location}</div>
-    <div class="meta-item"><i class="fas fa-tag"></i>${currentEvent.category_name}</div>
-  </div>
-  <div class="event-price-display">
-    <div class="price-label">票价:</div>
-    <div class="price-value ${isFree ? 'free' : ''}">${isFree ? 'Free' : `$${currentEvent.ticket_price}`}</div>
-  </div>
-  ${currentEvent.goal_amount > 0 ? `
-  <div class="event-progress-detailed">
-    <div class="progress-bar-large"><div class="progress-fill-large" style="width:${progress}%"></div></div>
-    <div class="progress-info">${progress.toFixed(1)}% &nbsp; $${currentEvent.current_amount.toLocaleString()} / $${currentEvent.goal_amount.toLocaleString()}</div>
-  </div>` : ''}
-  <div class="event-description-detailed"><h3>事件描述</h3><p>${currentEvent.event_description}</p></div>
-</div>`;
+
+  document.getElementById('eventInfo').innerHTML = createEventCard(currentEvent) +
+    `<div class="registration-area">
+       <h3>Registration</h3>
+       <form id="regForm" class="form-stacked">
+         <div class="form-group">
+           <label>Name *</label>
+           <input type="text" name="userName" required>
+         </div>
+         <div class="form-group">
+           <label>Email *</label>
+           <input type="email" name="userEmail" required>
+         </div>
+         <div class="form-group">
+           <label>Phone</label>
+           <input type="tel" name="userPhone">
+         </div>
+         <div class="form-group">
+           <label>Tickets *</label>
+           <select name="ticketCount" required>
+             ${[...Array(Math.min(5, currentEvent.max_tickets - currentEvent.total_tickets_sold)).keys()]
+               .map(i => `<option value="${i+1}">${i+1} ${currentEvent.ticket_price > 0 ? `($${currentEvent.ticket_price*(i+1)})` : '(Free)'}</option>`).join('')}
+           </select>
+         </div>
+         <div class="form-actions">
+           <button type="button" class="btn btn-secondary" onclick="history.back()">Cancel</button>
+           <button type="submit" class="btn btn-primary">Confirm</button>
+         </div>
+       </form>
+     </div>`;
 }
 
+/* ---------- 6. Vote Selection & Subtotal ---------- */
 function setupTicketSelect() {
   const sel = document.getElementById('ticketCount');
-  const avail = currentEvent.max_tickets - currentEvent.total_tickets_sold;
-  for (let i = 1; i <= Math.min(5, avail); i++) {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = `${i} 张票 ${currentEvent.ticket_price > 0 ? `($${currentEvent.ticket_price * i})` : '(Free)'}`;
-    sel.appendChild(opt);
-  }
-  sel.onchange = () => {
+  if (!sel) return; 
+  sel.addEventListener('change', () => {
     const n = +sel.value;
     const t = n * currentEvent.ticket_price;
     const sum = document.getElementById('ticketSummary');
+    if (!sum) return;
     sum.style.display = n ? 'block' : 'none';
     document.getElementById('selectedTickets').textContent = n;
     document.getElementById('totalPrice').textContent = t > 0 ? `$${t}` : 'Free';
-  };
+  });
 }
 
+/* ---------- 7. Form submission ---------- */
 function setupFormValidation() {
-  document.getElementById('registrationForm').addEventListener('submit', async e => {
+  document.getElementById('regForm').addEventListener('submit', async e => {
     e.preventDefault();
     const fd = new FormData(e.target);
     const payload = {
@@ -86,23 +103,53 @@ function setupFormValidation() {
       user_phone: fd.get('userPhone')?.trim() || null,
       ticket_count: +fd.get('ticketCount')
     };
-    if (!payload.ticket_count) return modal('表单错误', '请选择票数');
+    if (!payload.ticket_count) return modal('Form error', 'Please select ticket quantity');
+
     const btn = e.target.querySelector('button[type="submit"]');
-    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 处理中...';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
     try {
       const res = await fetch(`${API_BASE_URL}/registrations`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)});
       const json = await res.json();
       if (json.success) {
-        modal('注册成功', `
-<div style="text-align:center">
-  <p>确认邮件已发送至 <strong>${payload.user_email}</strong></p>
-  <button onclick="location.href='index.html'" class="btn btn-primary">返回首页</button>
-</div>`);
-      } else throw new Error(json.error || '注册失败');
+        modal('Success', `
+          <div style="text-align:center">
+            <p>Confirmation email sent to <strong>${payload.user_email}</strong></p>
+            <button onclick="location.href='index.html'" class="btn btn-primary">Back Home</button>
+          </div>`);
+      } else throw new Error(json.error || 'Registration failed');
     } catch (err) {
-      modal('失败', err.message);
+      modal('Failed', err.message);
     } finally {
-      btn.disabled = false; btn.innerHTML = '<i class="fas fa-paper-plane"></i> 提交注册';
+      btn.disabled = false;
+      btn.innerHTML = 'Confirm';
     }
   });
 }
+
+const createEventCard = ev => {
+  const progress = ev.goal_amount > 0 ? Math.min(100, (ev.current_amount / ev.goal_amount) * 100) : 0;
+  const isFree = ev.ticket_price === 0;
+  const date = formatDate(ev.event_date);
+  return `
+<div class="event-card fade-in" data-id="${ev.event_id}">
+  <div class="event-header">
+    <h3>${ev.event_name}</h3>
+    <span class="event-category">${ev.category_name}</span>
+  </div>
+  <div class="event-details">
+    <div class="event-meta">
+      <div class="event-date"><i class="icon-calendar"></i>${date}</div>
+      <div class="event-location"><i class="icon-location"></i>${ev.event_location}</div>
+      <div class="event-price"><i class="icon-ticket"></i>${isFree ? 'Free' : `$${ev.ticket_price}`}</div>
+    </div>
+    <p class="event-description">${ev.event_description?.substring(0, 120)}...</p>
+  </div>
+  <div class="event-footer">
+    <div class="event-progress">
+      <span class="progress-label">Raised: $${ev.current_amount} of $${ev.goal_amount}</span>
+      <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+    </div>
+  </div>
+</div>`;
+};

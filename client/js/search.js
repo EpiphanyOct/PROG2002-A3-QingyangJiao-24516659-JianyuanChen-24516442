@@ -50,5 +50,5 @@ function display() {
   document.getElementById('resultCount').textContent = filteredEvents.length;
 }
 
-// 分页辅助
+// Paging assistance
 window.goToPage = p => { curPage = p; display(); window.scrollTo({top: 0, behavior: 'smooth'}); };

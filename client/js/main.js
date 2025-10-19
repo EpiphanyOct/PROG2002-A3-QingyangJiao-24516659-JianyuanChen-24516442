@@ -6,11 +6,10 @@ const formatDate = d => new Date(d).toLocaleDateString('en-US', {
 });
 const getStatusText = s => ({upcoming: '即将开始', past: '已结束', suspended: '已暂停'}[s] || s);
 
-// 工具：loading
+// loading
 const showLoading = id => document.getElementById(id).innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>加载中...</p></div>';
 const showError = (msg, id) => (document.getElementById(id).innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle"></i> ${msg}</div>`);
 
-// 统一卡片（同作业A）
 const createEventCard = ev => {
   const progress = ev.goal_amount > 0 ? Math.min(100, (ev.current_amount / ev.goal_amount) * 100) : 0;
   const isFree = ev.ticket_price === 0;
@@ -38,7 +37,6 @@ const createEventCard = ev => {
 </div>`;
 };
 
-// 初始化首页
 document.addEventListener('DOMContentLoaded', () => loadUpcomingEvents());
 
 async function loadUpcomingEvents() {
