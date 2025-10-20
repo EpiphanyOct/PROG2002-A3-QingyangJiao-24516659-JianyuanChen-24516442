@@ -8,6 +8,9 @@ var app = express();
 app.use(bodyParser.json());
 // 推荐将 extended 设置为 true，以支持更丰富的数据类型
 app.use(bodyParser.urlencoded({ extended: true }));
+var app =express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // CORS 解决前端跨域
 app.use((req, res, next) => {
@@ -24,6 +27,12 @@ app.use((req, res, next) => {
     }
 });
 
+    res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
+
 // API路由
 var eventsAPI = require("./routes/events");
 var categoriesAPI = require("./routes/categories");
@@ -36,6 +45,8 @@ app.use("/api/registrations", registrationsAPI);
 
 // 关键修改：使用环境变量中的端口，兼容 cPanel
 var PORT = process.env.PORT || 3060;
+// 启动服务器
+var PORT = 3060;
 app.listen(PORT, function() {
     console.log("Server up and running on port " + PORT);
 });
