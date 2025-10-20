@@ -1,112 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Management - Charity Events Hub</title>
-    <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <title>Events Management - Charity Events Hub</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="logo">
-            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
-        </div>
-        <h1>Charity Events Hub</h1>
-        <p>Connecting communities through meaningful events</p>
-    </div>
+  <div class="container">
+    <div class="logo"><img src="client\images\charity-hero.jpg" alt="Charity Events Hub" width="150"></div>
+    <h1>Charity Events Hub</h1>
+  </div>
 </header>
-
 <nav class="main-nav">
-    <div class="container">
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li class="active"><a href="events.html">Events</a></li>
-            <li><a href="categories.html">Categories</a></li>
-            <li><a href="#" onclick="logout()">Logout</a></li>
-        </ul>
-    </div>
+  <div class="container">
+    <ul>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li class="active"><a href="events.html">Events</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
 </nav>
 
 <main class="container">
-    <!-- Search & filter -->
-    <section class="search-section">
-        <h2>Search & Filter Events</h2>
-        <form id="event-search-form" class="search-form">
-            <div class="form-group">
-                <label for="searchKeyword">Keyword</label>
-                <input type="text" id="searchKeyword" name="keyword" placeholder="Search event name...">
-            </div>
-            <div class="form-group">
-                <label for="filterCategory">Category</label>
-                <select id="filterCategory" name="category">
-                    <option value="">All Categories</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="filterStatus">Status</label>
-                <select id="filterStatus" name="status">
-                    <option value="">All Status</option>
-                    <option value="upcoming">Upcoming</option>
-                    <option value="past">Past</option>
-                    <option value="suspended">Suspended</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="filterDate">Date</label>
-                <input type="date" id="filterDate" name="date">
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Search</button>
-                <button type="button" class="btn btn-secondary" onclick="resetFilters()">Clear</button>
-                <button type="button" class="btn btn-success" onclick="showCreateEventModal()">Create Event</button>
-            </div>
-        </form>
-    </section>
+  <section class="search-section">
+    <h2>Search & Filter Events</h2>
+    <form id="eventSearchForm" class="search-form">
+      <div class="form-group">
+        <label>Keyword</label>
+        <input type="text" id="searchKeyword" placeholder="Search event name...">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="filterCategory"><option value="">All Categories</option></select>
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select id="filterStatus">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Past">Past</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="filterDate">
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="button" class="btn btn-secondary" onclick="resetFilters()">Clear</button>
+        <button type="button" class="btn btn-success" onclick="showCreateEventModal()">Create Event</button>
+      </div>
+    </form>
+  </section>
 
-    <!-- Result list -->
-    <section class="results-section">
-        <h2>Events List</h2>
-        <div id="eventsStats" class="search-stats">0 events found</div>
-        <div id="search-results" class="events-grid">
-            <table class="events-table" id="eventsTable">
-                <thead>
-                    <tr>
-                        <th>Event Name</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Attendance</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="eventsTableBody">
-                    <tr>
-                        <td colspan="7" class="loading">
-                            <i class="fas fa-spinner fa-spin"></i> Loading events...
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        
-        <div class="pagination" id="pagination" style="display:none;">
-            <button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i> Prev</button>
-            <div class="page-numbers" id="pageNumbers"></div>
-            <button class="page-btn" id="nextPage">Next <i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
+  <section class="results-section">
+    <h2>Events List</h2>
+    <div id="eventsStats" class="search-stats">0 events found</div>
+    <table class="events-table" id="eventsTable">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Category</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="eventsTableBody">
+        <tr><td colspan="6" class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>
+      </tbody>
+    </table>
+  </section>
 </main>
 
-<footer>
-    <div class="container">
-        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
-        <p>Making a difference one event at a time.</p>
-    </div>
-</footer>
-
 <script src="js/events.js"></script>
+<script>
+function logout(){
+  if(confirm('Logout?')){
+    localStorage.removeItem('adminLoggedIn');
+    location.href='login.html';
+  }
+}
+</script>
 </body>
 </html>

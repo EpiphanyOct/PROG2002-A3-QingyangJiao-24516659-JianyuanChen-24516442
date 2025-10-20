@@ -1,101 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Charity Events Hub</title>
-    <link rel="stylesheet" href="css/main.css">
-    <style>
-        body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
-        .login-container{background:#fff;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.1);overflow:hidden;width:100%;max-width:400px;animation:slideIn .5s ease-out;}
-        @keyframes slideIn{from{opacity:0;transform:translateY(-30px);}to{opacity:1;transform:translateY(0);}}
-        .login-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:40px 30px 30px;text-align:center;}
-        .login-header i{font-size:3rem;margin-bottom:15px;opacity:.9;}
-        .login-header h1{font-size:1.8rem;font-weight:700;margin-bottom:10px;}
-        .login-header p{opacity:.9;font-size:.9rem;}
-        .login-form{padding:40px 30px;}
-        .form-group{margin-bottom:25px;}
-        .form-group label{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-weight:600;color:#2c3e50;font-size:.9rem;}
-        .form-group input{width:100%;padding:12px 15px;border:2px solid #ecf0f1;border-radius:8px;font-size:1rem;transition:all .3s ease;background:#f8f9fa;}
-        .form-group input:focus{outline:none;border-color:#3498db;background:#fff;box-shadow:0 0 0 3px rgba(52,152,219,.1);}
-        .form-group input.error{border-color:#e74c3c;background:rgba(231,76,60,.05);}
-        .error-message{color:#e74c3c;font-size:.8rem;margin-top:5px;display:none;}
-        .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px;}
-        .login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(102,126,234,.3);}
-        .login-btn:disabled{opacity:.7;cursor:not-allowed;transform:none;box-shadow:none;}
-        .login-footer{text-align:center;padding:20px 30px;border-top:1px solid #ecf0f1;background:#f8f9fa;font-size:.8rem;color:#7f8c8d;}
-        .back-link{color:#3498db;text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:5px;transition:all .3s ease;}
-        .back-link:hover{color:#2980b9;transform:translateX(-5px);}
-        .demo-info{background:#e8f4fd;border:1px solid #3498db;border-radius:8px;padding:15px;margin-bottom:25px;font-size:.9rem;color:#2c3e50;}
-        .demo-info h4{color:#3498db;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-        .loading{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.3);border-radius:50%;border-top-color:#fff;animation:spin 1s ease-in-out infinite;}
-        @keyframes spin{to{transform:rotate(360deg);}}
-        @media (max-width:480px){.login-container{margin:10px;border-radius:15px;}.login-header{padding:30px 20px 20px;}.login-form{padding:30px 20px;}.login-header h1{font-size:1.5rem;}.login-header i{font-size:2.5rem;}}
-    </style>
+  <meta charset="UTF-8">
+  <title>Admin Login - Charity Events Hub</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/enhanced.css">
+  <style>
+    body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;}
+    .login-container{background:#fff;border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,.1);overflow:hidden;width:100%;max-width:400px;}
+    .login-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:40px 30px 30px;text-align:center;}
+    .login-form{padding:40px 30px;}
+    .form-group{margin-bottom:25px;}
+    .form-group label{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-weight:600;color:#2c3e50;font-size:.9rem;}
+    .form-group input{width:100%;padding:12px 15px;border:2px solid #ecf0f1;border-radius:8px;font-size:1rem;transition:all .3s ease;background:#f8f9fa;}
+    .form-group input:focus{outline:none;border-color:#3498db;background:#fff;box-shadow:0 0 0 3px rgba(52,152,219,.1);}
+    .login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;}
+    .login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(102,126,234,.3);}
+    .demo-info{background:#e8f4fd;border:1px solid #3498db;border-radius:8px;padding:15px;margin-bottom:25px;font-size:.9rem;color:#2c3e50;}
+  </style>
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="logo">
-            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
-        </div>
-        <h1>Charity Events Hub</h1>
-        <p>Connecting communities through meaningful events</p>
-    </div>
+  <div class="container">
+    <div class="logo"><img src="client\images\charity-hero.jpg" alt="Charity Events Hub" width="150"></div>
+    <h1>Charity Events Hub</h1>
+  </div>
 </header>
-
 <nav class="main-nav">
-    <div class="container">
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li class="active"><a href="#">Admin Login</a></li>
-        </ul>
-    </div>
+  <div class="container">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li class="active"><a href="#">Admin Login</a></li>
+    </ul>
+  </div>
 </nav>
 
 <main class="container" style="background:transparent;">
-    <div class="login-container">
-        <div class="login-header">
-            <i class="fas fa-user-shield"></i>
-            <h1>Admin Login</h1>
-            <p>Charity Events Management System</p>
-        </div>
-        <div class="login-form">
-            <div class="demo-info">
-                <h4><i class="fas fa-info-circle"></i> Demo Account</h4>
-                <p><strong>Username:</strong> admin</p>
-                <p><strong>Password:</strong> admin123</p>
-            </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username"><i class="fas fa-user"></i> Username</label>
-                    <input type="text" id="username" name="username" required placeholder="Enter username" autocomplete="username">
-                    <div class="error-message" id="usernameError"></div>
-                </div>
-                <div class="form-group">
-                    <label for="password"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter password" autocomplete="current-password">
-                    <div class="error-message" id="passwordError"></div>
-                </div>
-                <button type="submit" class="login-btn" id="loginBtn">
-                    <i class="fas fa-sign-in-alt"></i> <span id="btnText">Login</span>
-                </button>
-            </form>
-        </div>
-        <div class="login-footer">
-            <p>PROG2002 A3 Demo</p>
-            <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
-        </div>
+  <div class="login-container">
+    <div class="login-header">
+      <i class="fas fa-user-shield" style="font-size:3rem;margin-bottom:15px;"></i>
+      <h1>Admin Login</h1>
     </div>
+    <div class="login-form">
+      <div class="demo-info">
+        <h4><i class="fas fa-info-circle"></i> Demo Account</h4>
+        <p><strong>Username:</strong> admin</p>
+        <p><strong>Password:</strong> admin123</p>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Username</label>
+          <input type="text" id="username" required placeholder="Enter username">
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Password</label>
+          <input type="password" id="password" required placeholder="Enter password">
+        </div>
+        <button class="login-btn">Login</button>
+      </form>
+    </div>
+  </div>
 </main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
-        <p>Making a difference one event at a time.</p>
-    </div>
-</footer>
-
 <script src="js/login.js"></script>
 </body>
 </html>

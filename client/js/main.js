@@ -1,38 +1,39 @@
-// PROG2002 A3 - Client Side  (main.js 首页)
+// main.js - 首页加载活动
 const API_BASE_URL = window.location.origin + '/api';
 
 const formatDate = d => new Date(d).toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+  year: 'numeric', month: 'long', day: 'numeric'
 });
-const getStatusText = s => ({upcoming: '即将开始', past: '已结束', suspended: '已暂停'}[s] || s);
 
-// loading
-const showLoading = id => document.getElementById(id).innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i><p>加载中...</p></div>';
-const showError = (msg, id) => (document.getElementById(id).innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle"></i> ${msg}</div>`);
+const statusText = {
+  Active: 'Upcoming',
+  Past: 'Ended',
+  Suspended: 'Suspended'
+};
 
 const createEventCard = ev => {
   const progress = ev.goal_amount > 0 ? Math.min(100, (ev.current_amount / ev.goal_amount) * 100) : 0;
-  const isFree = ev.ticket_price === 0;
+  const isFree = ev.ticket_price == 0;
   return `
-<div class="event-card fade-in" data-id="${ev.event_id}">
+<div class="event-card fade-in" data-id="${ev.id}">
   <div class="event-header">
-    <h3>${ev.event_name}</h3>
-    <span class="event-category">${ev.category_name}</span>
+    <h3>${ev.title}</h3>
+    <span class="event-category">${ev.category_name || 'Uncategorised'}</span>
   </div>
   <div class="event-details">
     <div class="event-meta">
-      <div class="event-date"><i class="icon-calendar"></i>${formatDate(ev.event_date)}</div>
-      <div class="event-location"><i class="icon-location"></i>${ev.event_location}</div>
-      <div class="event-price"><i class="icon-ticket"></i>${isFree ? 'Free' : `$${ev.ticket_price}`}</div>
+      <div class="event-date"><i class="fas fa-calendar"></i>${formatDate(ev.event_date)}</div>
+      <div class="event-location"><i class="fas fa-map-marker-alt"></i>${ev.location}</div>
+      <div class="event-price"><i class="fas fa-ticket"></i>${isFree ? 'Free' : `$${ev.ticket_price}`}</div>
     </div>
-    <p class="event-description">${ev.event_description?.substring(0, 120)}...</p>
+    <p class="event-description">${ev.description?.substring(0, 120)}...</p>
   </div>
   <div class="event-footer">
     <div class="event-progress">
       <span class="progress-label">Raised: $${ev.current_amount} of $${ev.goal_amount}</span>
       <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
     </div>
-    <a href="event-detail.html?id=${ev.event_id}" class="event-link">View Details</a>
+    <a href="event.html?id=${ev.id}" class="btn btn-primary">View Details</a>
   </div>
 </div>`;
 };
@@ -40,17 +41,17 @@ const createEventCard = ev => {
 document.addEventListener('DOMContentLoaded', () => loadUpcomingEvents());
 
 async function loadUpcomingEvents() {
-  showLoading('events-container');
+  const container = document.getElementById('events-container');
+  container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading events...</div>';
   try {
     const res = await fetch(`${API_BASE_URL}/events`);
-    const json = await res.json();
-    const container = document.getElementById('events-container');
-    if (!json.success || !json.data.length) {
-      container.innerHTML = '<p class="no-events">No upcoming events at this time.</p>';
+    const list = await res.json();
+    if (!list.length) {
+      container.innerHTML = '<p class="empty-state">No upcoming events at this time.</p>';
       return;
     }
-    container.innerHTML = json.data.map(createEventCard).join('');
-  } catch (err) {
-    showError('Failed to load events.', 'events-container');
+    container.innerHTML = list.map(createEventCard).join('');
+  } catch (e) {
+    container.innerHTML = '<p class="error">Failed to load events.</p>';
   }
 }

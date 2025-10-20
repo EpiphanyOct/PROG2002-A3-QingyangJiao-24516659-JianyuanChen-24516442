@@ -1,73 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Charity Events Hub - Home</title>
-    <link rel="stylesheet" href="css/main.css">
+  <meta charset="UTF-8">
+  <title>Charity Events Hub - Home</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <header>
-    <div class="container">
-        <div class="logo">
-            <img src="images/charity-logo.png" alt="Charity Events Hub" width="150">
-        </div>
-        <h1>Charity Events Hub</h1>
-        <p>Connecting communities through meaningful events</p>
-    </div>
+  <div class="container">
+    <div class="logo"><img src="images/charity-logo.png" alt="Charity Events Hub" width="150"></div>
+    <h1>Charity Events Hub</h1>
+    <p>Connecting communities through meaningful events</p>
+  </div>
 </header>
-
 <nav class="main-nav">
-    <div class="container">
-        <ul>
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="search.html">Search Events</a></li>
-        </ul>
-    </div>
+  <div class="container">
+    <ul>
+      <li class="active"><a href="index.html">Home</a></li>
+      <li><a href="search.html">Search Events</a></li>
+      <li><a href="registration.html">Registration</a></li> 
+    </ul>
+  </div>
 </nav>
 
 <main class="container">
-    <section class="hero">
-        <div class="hero-content">
-            <h2>Making a Difference Together</h2>
-            <p>Join our supporter community and participate in those activities that can bring positive changes to our city.</p>
-            <a href="search.html" class="btn btn-primary">Explore Events</a>
-        </div>
-        <div class="hero-image">
-            <img src="images/charity-hero.jpg" alt="Charity event volunteers">
-        </div>
-    </section>
-
-    <section class="about-section">
-        <h2>About Our Organization</h2>
-        <div class="about-content">
-            <p> The Charity Events Hub is a newly established non-profit organization dedicated to bridging the gap between charitable causes and community support. With great enthusiasm, we aim to contribute to the positive changes in society. </p>
-            <p> Our mission is to create a platform that enables charitable organizations to easily promote their activities, while allowing community members to discover and participate in meaningful events that align with their personal values. </p>
-            <p> Although we are just beginning, we firmly believe that every act of kindness can accumulate into the power to change the world. We look forward to collaborating with like-minded organizations and individuals to jointly hold the first meaningful charity event. </p>
-            <p> Join us and let's work together to make a positive impact on the community! </p>
-        </div>
-        <div class="contact-info">
-            <h3>Contact Us</h3>
-            <p><strong>Email:</strong> j.chen.78@student.scu.edu.au</p>
-            <p><strong>Phone:</strong> (+86) 135****9035</p>
-            <p><strong>Address:</strong> Guangxi University of Science and Technology, Liuzhou City, Guangxi Zhuang Autonomous Region, China</p>
-        </div>
-    </section>
-
-    <section class="events-section">
-        <h2>Upcoming Charity Events</h2>
-        <div id="events-container" class="events-grid">
-            <div class="loading">Loading events...</div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2025 Charity Events Hub. All rights reserved.</p>
-        <p>Making a difference one event at a time.</p>
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Making a Difference Together</h2>
+      <p>Join our supporter community and participate in those activities that can bring positive changes to our city.</p>
+      <a href="search.html" class="btn btn-primary">Explore Events</a>
     </div>
-</footer>
+    <div class="hero-image"><img src="images/charity-hero.jpg" alt="Charity event volunteers"></div>
+  </section>
+
+  <section class="events-section">
+    <h2>Upcoming Charity Events</h2>
+    <div id="events-container" class="events-grid"><div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading events...</div></div>
+  </section>
+</main>
 
 <script src="js/main.js"></script>
 </body>
